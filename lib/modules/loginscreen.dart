@@ -1,8 +1,17 @@
+
 import 'package:flutter/material.dart';
+
+import '../shared/components/components/defaultbutton.dart';
+import '../shared/components/components/defaulttextfield.dart';
 
 class loginScreen extends StatelessWidget {
  var emailcontrol = TextEditingController();
  var passcontrol = TextEditingController();
+Icon email=
+  Icon(
+    Icons.email,
+    color: Colors.grey,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -38,57 +47,38 @@ class loginScreen extends StatelessWidget {
               SizedBox(
             height: 20,
           ),
-              TextFormField(
-
-
-            controller: emailcontrol,
-            keyboardType: TextInputType.emailAddress,
-            onFieldSubmitted: (String value){
-              print(value);
-            },
-            onChanged: (String value){
-              print(value);
-            },
-            validator: (String? value){
-              if(value != null){
-                if(value.isEmpty){
-                  return 'Email address can not be empty';
-                }
-              }
-              return null;
-            },
-            decoration: InputDecoration(
-
-              labelText: 'Email Address',
-
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.brown,
+              defaultFormField(
+                type: TextInputType.emailAddress,
+                validate: (String? value){
+                  if(value != null){
+                    if(value.isEmpty){
+                      return 'Email address can not be empty';
+                    }
+                  }
+                  return null;
+                },
+                label:  'Email Address',
+                prefix: Icons.email,
+                controller: emailcontrol,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(
-                    width: 2,
-                    color: Colors.brown
-                ),
-              ) ,
-            ),
-          ),
               SizedBox(
                 height: 15,
               ),
-              TextFormField(
+              defaultFormField(
+                type: TextInputType.visiblePassword,
+                label:  'Password',
                 controller: passcontrol,
-                keyboardType: TextInputType.visiblePassword,
-                obscureText: true,
-
-                onFieldSubmitted: (String? value){
+                isPassword: true,
+                prefix: Icons.lock,
+                prefixColor:Colors.brown,
+                  suffix:Icons.remove_red_eye,
+                onSubmit: (String? value){
+                print(value);
+              },
+                onChange: (String? value){
                   print(value);
                 },
-                onChanged: (String? value){
-                  print(value);
-                },
-                validator: (String? value){
+                validate: (String? value){
                   if(value != null) {
                     if (value.isEmpty) {
                       return 'Password can not be empty';
@@ -96,27 +86,6 @@ class loginScreen extends StatelessWidget {
                   }
                   return null;
                 },
-
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  prefixIcon: Icon(
-                    Icons.lock,
-                    color: Colors.brown,
-                  ),
-                  suffixIcon: Icon(
-                    Icons.remove_red_eye,
-                    color: Colors.brown,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                        width: 2,
-                        color: Colors.brown
-                    ),
-                  ) ,
-
-                ),
-
 
               ),
               SizedBox(
