@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../shared/components/components/defaultbutton.dart';
 import '../shared/components/components/defaulttextfield.dart';
 
 class signupScreen extends StatelessWidget {
@@ -246,6 +247,23 @@ class signupScreen extends StatelessWidget {
                   suffixPressed: (){
                     isConfirmedpassword=!isConfirmedpassword;
                   }),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: double.infinity,
+                height: 55,
+
+                child: Center(
+                    child: defaultButton(
+                        function: (){},
+                        text: 'Sign Up',
+                        radius: 20,
+                        background: Colors.brown)
+                ),
+
+
+              ),
             ],
           ),
         ),
