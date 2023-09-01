@@ -71,7 +71,8 @@ bool ispass=true;
                 },
                     label: 'Email Address',
                     prefix: Icons.email,
-                    suffixPressed: (){}),
+                    suffixPressed: (){}
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -83,8 +84,8 @@ bool ispass=true;
                       print(value);
                     },
                     onChange: (String? value){
-          print(value);
-          },
+                      print(value);
+                      },
                     onTap: () {
 
                     } ,
