@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 Widget defaultFormField({
   required TextEditingController controller,
   required TextInputType type,
-  Function ?onSubmit,
-  Function ?onChange,
-  Function ?onTap,
+  required Function onSubmit,
+  required Function onChange,
+  required Function onTap,
   bool isPassword = false,
   required Function validate,
   required String label,
    required IconData prefix,
     Color? prefixColor=Colors.brown,
   IconData ?suffix,
-  Function ?suffixPressed,
+  required Function suffixPressed,
   bool isClickable = true,
 
 }) =>

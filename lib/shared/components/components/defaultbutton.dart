@@ -20,10 +20,13 @@ Widget defaultButton({
           isUpperCase ? text.toUpperCase() : text,
           style: TextStyle(
             color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
       decoration: BoxDecoration(
+
         borderRadius: BorderRadius.circular(
           radius,
         ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:training_project/shared/components/components/defaultbutton.dart';
+import 'package:training_project/shared/components/components/defaulttextfield.dart';
 
 class loginScreen extends StatelessWidget {
  var emailcontrol = TextEditingController();
  var passcontrol = TextEditingController();
-
+bool ispass=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,87 +49,59 @@ class loginScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                TextFormField(
+                defaultFormField(
+                    controller: emailcontrol,
+                    type: TextInputType.emailAddress,
+                    onSubmit: (String value){
+                  print(value);
+                },
+                    onChange: (String value){
+                  print(value);
+                },
+                    onTap: () {
 
-
-              controller: emailcontrol,
-              keyboardType: TextInputType.emailAddress,
-              onFieldSubmitted: (String value){
-                print(value);
-              },
-              onChanged: (String value){
-                print(value);
-              },
-              validator: (String? value){
-                if(value != null){
-                  if(value.isEmpty){
-                    return 'Email address can not be empty';
+                    } ,
+                    validate: (String? value){
+                  if(value != null){
+                    if(value.isEmpty){
+                      return 'Email address can not be empty';
+                    }
                   }
-                }
-                return null;
-              },
-              decoration: InputDecoration(
-
-                labelText: 'Email Address',
-
-                prefixIcon: Icon(
-                  Icons.email,
-                  color: Colors.brown,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: BorderSide(
-                      width: 2,
-                      color: Colors.brown
-                  ),
-                ) ,
-              ),
-            ),
+                  return null;
+                },
+                    label: 'Email Address',
+                    prefix: Icons.email,
+                    suffixPressed: (){}),
                 SizedBox(
                   height: 15,
                 ),
-                TextFormField(
-                  controller: passcontrol,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
+                defaultFormField(
+                    controller: passcontrol,
+                    type: TextInputType.visiblePassword,
+                    isPassword: ispass,
+                    onSubmit: (String? value){
+                      print(value);
+                    },
+                    onChange: (String? value){
+          print(value);
+          },
+                    onTap: () {
 
-                  onFieldSubmitted: (String? value){
-                    print(value);
-                  },
-                  onChanged: (String? value){
-                    print(value);
-                  },
-                  validator: (String? value){
-                    if(value != null) {
-                      if (value.isEmpty) {
-                        return 'Password can not be empty';
+                    } ,
+                    validate: (String? value){
+                      if(value != null) {
+                        if (value.isEmpty) {
+                          return 'Password can not be empty';
+                        }
                       }
-                    }
-                    return null;
-                  },
-
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(
-                      Icons.lock,
-                      color: Colors.brown,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.remove_red_eye,
-                      color: Colors.brown,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                          width: 2,
-                          color: Colors.brown
-                      ),
-                    ) ,
-
-                  ),
-
-
-                ),
+                      return null;
+                    },
+                    label: 'Password',
+                    prefix: Icons.lock,
+                    suffix: Icons.remove_red_eye,
+                    suffixPressed: (){
+                      ispass=!ispass;
+                    }),
                 SizedBox(
                   height: 20,
                 ),
@@ -136,20 +110,9 @@ class loginScreen extends StatelessWidget {
                   height: 55,
 
                   child: Center(
-                    child: Text(
-                      'LOGIN WITH EMAIL',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: defaultButton(function: (){}, text: 'LOGIN WITH EMAIL',radius: 20,background: Colors.brown)
+                  ),
 
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.brown
-                  ),
 
                 ),
                 Row(
