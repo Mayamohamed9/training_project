@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../shared/components/components/defaultbutton.dart';
 import '../shared/components/components/defaulttextfield.dart';
@@ -9,7 +10,7 @@ class signupScreen extends StatelessWidget {
   var passcont = TextEditingController();
   var confirmPasscont = TextEditingController();
   var phonecont = TextEditingController();
-  var agecont = TextEditingController();
+  var dateofbirthcontroller = TextEditingController();
   var heightcont = TextEditingController();
 
   bool ispassword = true;
@@ -137,8 +138,8 @@ class signupScreen extends StatelessWidget {
                 height: 15,
               ),
               defaultFormField(
-                  controller: agecont,
-                  type: TextInputType.number,
+                  controller: dateofbirthcontroller,
+                  type: TextInputType.datetime,
                   onSubmit: (String value){
                     print(value);
                   },
@@ -146,7 +147,12 @@ class signupScreen extends StatelessWidget {
                     print(value);
                   },
                   onTap: () {
-
+                   showDatePicker(context: context,
+                       initialDate: DateTime.parse("1850-01-01"),
+                       firstDate: DateTime.parse("1850-01-01"),
+                       lastDate: DateTime.now(),).then((value) {
+                     dateofbirthcontroller.text=DateFormat.yMMMd().format(value!);
+                   });
                   } ,
                   validate: (String? value){
                     if(value != null){
@@ -156,8 +162,8 @@ class signupScreen extends StatelessWidget {
                     }
                     return null;
                   },
-                  label: 'Age',
-                  prefix: Icons.apps_outage_outlined,
+                  label: 'Date Of Birth',
+                  prefix: Icons.calendar_month,
                   suffixPressed: (){}
               ),
               SizedBox(
