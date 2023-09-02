@@ -8,7 +8,7 @@ Widget defaultFormField({
   required Function onChange,
   required Function onTap,
   bool isPassword = false,
-  required Function validate,
+  // required Function validate,
   required String label,
   required IconData prefix,
   Color? prefixColor=Colors.brown,

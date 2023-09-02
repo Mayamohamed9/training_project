@@ -86,12 +86,12 @@ import 'package:training_project/shared/cubit/appStates.dart';
        onTap: () {
 
        } ,
-       validate: (value) {
-         if (value!.isEmpty) {
-           return 'Email address cannot be empty';
-         }
-         return null;
-       },
+       // validate: (value) {
+       //   if (value!.isEmpty) {
+       //     return 'Email address cannot be empty';
+       //   }
+       //   return null;
+       // },
        label: 'Email Address',
        prefix: Icons.email,
        suffixPressed: (){}
@@ -114,13 +114,13 @@ import 'package:training_project/shared/cubit/appStates.dart';
        onTap: () {
 
        } ,
-       validate: (value) {
-         if (value!.isEmpty) {
-           return 'Password cannot be empty';
-         }
-
-         return null;
-       },
+       // validate: (value) {
+       //   if (value!.isEmpty) {
+       //     return 'Password cannot be empty';
+       //   }
+       //
+       //   return null;
+       // },
        label: 'Password',
        prefix: Icons.lock,
        suffix: cubit.ispass ? Icons.visibility_off :Icons.visibility ,
