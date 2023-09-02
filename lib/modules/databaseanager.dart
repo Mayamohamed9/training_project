@@ -17,7 +17,7 @@ void createDatabase() async
       // await db.execute(
       //   'CREATE TABLE tasks (id INTEGER PRIMARY KEY,title TEXT,date TEXT,status TEXT) '
       // );
-      db.execute('CREATE TABLE tasks (id INTEGER PRIMARY KEY,title TEXT,date TEXT,status TEXT,time TEXT) ').then((value) {
+      db.execute('CREATE TABLE  (id INTEGER PRIMARY KEY,title TEXT,date TEXT,status TEXT,time TEXT) ').then((value) {
         print("Table created");
       }).catchError((onError){
         print("error when creating Table ${onError.toString()}");
