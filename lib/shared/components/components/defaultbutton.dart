@@ -13,7 +13,8 @@ Widget defaultButton({
       width: width,
       height: 50.0,
       child: MaterialButton(
-        onPressed: () {
+        onPressed:
+        (){
           function!();
         },
         child: Text(

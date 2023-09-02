@@ -264,7 +264,8 @@ class signupScreen extends StatelessWidget {
                                   function: (){},
                                   text: 'Sign Up',
                                   radius: 20,
-                                  background: Colors.brown)
+                                  background: Colors.brown
+                              )
                           ),
 
 
