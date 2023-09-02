@@ -8,9 +8,11 @@ class AppCubit extends Cubit<AppStates>{
   AppCubit() : super(infoInitialState());
 
   static AppCubit get(context) => BlocProvider.of(context);
+
   bool ispass=true;
 
   bool ispassword = true;
+
   bool isConfirmedpassword = true;
 
   void changePassword(bool value){

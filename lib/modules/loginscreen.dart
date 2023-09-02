@@ -74,6 +74,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
        height: 15,
        ),
        defaultFormField(
+         formKey: formKey,
        controller: emailcontrol,
        type: TextInputType.emailAddress,
        onSubmit: (String value){
@@ -85,13 +86,11 @@ import 'package:training_project/shared/cubit/appStates.dart';
        onTap: () {
 
        } ,
-       validate: (String? value){
-       if(value != null){
-       if(value.isEmpty){
-       return 'Email address can not be empty';
-       }
-       }
-       return null;
+       validate: (value) {
+         if (value!.isEmpty) {
+           return 'Email address cannot be empty';
+         }
+         return null;
        },
        label: 'Email Address',
        prefix: Icons.email,
@@ -101,6 +100,8 @@ import 'package:training_project/shared/cubit/appStates.dart';
        height: 15,
        ),
        defaultFormField(
+
+           formKey: formKey,
        controller: passcontrol,
        type: TextInputType.visiblePassword,
        isPassword: cubit.ispass,
@@ -113,13 +114,12 @@ import 'package:training_project/shared/cubit/appStates.dart';
        onTap: () {
 
        } ,
-       validate: (String? value){
-       if(value != null) {
-       if (value!.isEmpty) {
-       return 'Password can not be empty';
-       }
-       }
-       return null;
+       validate: (value) {
+         if (value!.isEmpty) {
+           return 'Password cannot be empty';
+         }
+
+         return null;
        },
        label: 'Password',
        prefix: Icons.lock,

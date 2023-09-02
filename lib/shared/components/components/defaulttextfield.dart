@@ -10,12 +10,12 @@ Widget defaultFormField({
   bool isPassword = false,
   required Function validate,
   required String label,
-   required IconData prefix,
-    Color? prefixColor=Colors.brown,
+  required IconData prefix,
+  Color? prefixColor=Colors.brown,
   IconData ?suffix,
   required Function suffixPressed,
   bool isClickable = true,
-
+   required GlobalKey formKey ,
 
 }) =>
     TextFormField(
@@ -24,16 +24,19 @@ Widget defaultFormField({
       obscureText: isPassword,
       enabled: isClickable,
       onFieldSubmitted: (s) {
-        onSubmit!(s);
+        onSubmit(s);
       },
       onChanged: (s) {
-        onChange!(s);
+        onChange(s);
       },
       onTap: () {
-        onTap!();
+        onTap();
       },
-      validator: (s) {
-        validate!(s);
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'required';
+        }
+        return null;
       },
       decoration: InputDecoration(
         labelText: label,
@@ -44,7 +47,7 @@ Widget defaultFormField({
         suffixIcon: suffix != null
             ? IconButton(
           onPressed: () {
-            suffixPressed!();
+            suffixPressed();
           },
           icon: Icon(
             suffix,

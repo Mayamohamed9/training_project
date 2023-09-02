@@ -7,6 +7,7 @@ class ResetPassword extends StatelessWidget {
    ResetPassword({super.key});
 
 
+   var formKey = GlobalKey<FormState>();
   var repaasscontrol = TextEditingController();
   var passcontrol = TextEditingController();
   bool ispass=true;
@@ -31,6 +32,8 @@ class ResetPassword extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),defaultFormField(
+
+                        formKey: formKey,
                         controller: passcontrol,
                         type: TextInputType.visiblePassword,
                         isPassword: ispass,
@@ -60,6 +63,7 @@ class ResetPassword extends StatelessWidget {
                       height: 20,
                     ),
                     defaultFormField(
+                        formKey: formKey,
                         controller: repaasscontrol,
                         type: TextInputType.visiblePassword,
                         isPassword: ispass2,

@@ -18,6 +18,7 @@ class signupScreen extends StatelessWidget {
   var dateofbirthcontroller = TextEditingController();
   var heightcont = TextEditingController();
 
+  var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +57,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: name,
                             type: TextInputType.text,
                             onSubmit: (String value){
@@ -83,6 +85,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: emailcont,
                             type: TextInputType.emailAddress,
                             onSubmit: (String value){
@@ -110,6 +113,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: phonecont,
                             type: TextInputType.phone,
                             onSubmit: (String value){
@@ -137,6 +141,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: dateofbirthcontroller,
                             type: TextInputType.datetime,
                             onSubmit: (String value){
@@ -169,6 +174,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: heightcont,
                             type: TextInputType.number,
                             onSubmit: (String value){
@@ -196,6 +202,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: passcont,
                             type: TextInputType.visiblePassword,
                             isPassword: cubit.ispassword,
@@ -226,6 +233,7 @@ class signupScreen extends StatelessWidget {
                           height: 15,
                         ),
                         defaultFormField(
+                            formKey: formKey,
                             controller: confirmPasscont,
                             type: TextInputType.visiblePassword,
                             isPassword:  cubit.isConfirmedpassword,
