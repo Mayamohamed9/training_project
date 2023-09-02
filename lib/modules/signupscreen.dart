@@ -264,7 +264,9 @@ class signupScreen extends StatelessWidget {
 
                             child: Center(
                                 child: defaultButton(
-                                    function: (){},
+                                    function: (){if(formKey.currentState!.validate()){
+
+                                    }},
                                     text: 'Sign Up',
                                     radius: 20,
                                     background: Colors.brown

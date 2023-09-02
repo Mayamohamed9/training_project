@@ -96,7 +96,9 @@ class ResetPassword extends StatelessWidget {
                         height: 20,
                       ),
                        Center(
-                          child: defaultButton(function: (){}, text: 'change password',radius: 20,background: Colors.brown)
+                          child: defaultButton(function: (){if(formKey.currentState!.validate()){
+
+                          }}, text: 'change password',radius: 20,background: Colors.brown)
                       ),
                     ],
                   ),
