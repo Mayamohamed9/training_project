@@ -25,8 +25,7 @@ class profileScreen extends StatelessWidget {
           children: [
             //dabdob
 
-
-              cubit.isLoading?
+             cubit.isLoading?
               CircularProgressIndicator(
                 color: Colors.brown,
               ) :
