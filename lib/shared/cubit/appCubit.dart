@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_project/shared/cubit/appStates.dart';
 import 'package:sqflite/sqflite.dart';
@@ -33,6 +34,7 @@ class AppCubit extends Cubit<AppStates>{
   bool isConfirmedpassword = true;
   bool ispass1=true;
   bool ispass2=true;
+
 
   void changePassword(bool value){
     ispass = !value;

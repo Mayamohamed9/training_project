@@ -1,5 +1,8 @@
+import 'package:training_project/modules/signupscreen.dart';
 
 import 'package:flutter/material.dart';
+
+import '../../cubit/appCubit.dart';
 
 Widget defaultFormField({
   required TextEditingController controller,
@@ -8,6 +11,7 @@ Widget defaultFormField({
   required Function onChange,
   required Function onTap,
   bool isPassword = false,
+  bool confirmpass = false,
   // required Function validate,
   required String label,
   required IconData prefix,
@@ -36,6 +40,12 @@ Widget defaultFormField({
         if (value!.isEmpty) {
           return 'required';
         }
+       /* if(confirmpass){
+          if(value != passcont.text){
+            print('Passwords don\'t match ' );
+
+          }
+        }*/
         return null;
       },
       decoration: InputDecoration(

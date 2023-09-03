@@ -12,7 +12,7 @@ import '../shared/components/components/defaulttextfield.dart';
 class signupScreen extends StatelessWidget {
   var name = TextEditingController();
   var emailcont = TextEditingController();
-  var passcont = TextEditingController();
+  static var passcont = TextEditingController();
   var confirmPasscont = TextEditingController();
   var phonecont = TextEditingController();
   var dateofbirthcontroller = TextEditingController();
@@ -52,7 +52,7 @@ class signupScreen extends StatelessWidget {
                           ),
                           Center(
                             child: Image.asset(
-                                cubit.isConfirmedpassword? 'images/mghmada.png':'images/doba-removebg-preview.png'
+                                cubit.ispassword? 'images/mghmada.png':'images/doba-removebg-preview.png'
                             ),
                           ),
                           SizedBox(
@@ -198,7 +198,7 @@ class signupScreen extends StatelessWidget {
                           ),
                           defaultFormField(
                               formKey: formKey,
-                              controller: passcont,
+                              controller:passcont,
                               type: TextInputType.visiblePassword,
                               isPassword: cubit.ispassword,
                               onSubmit: (String? value){
@@ -232,6 +232,7 @@ class signupScreen extends StatelessWidget {
                               controller: confirmPasscont,
                               type: TextInputType.visiblePassword,
                               isPassword:  cubit.isConfirmedpassword,
+                              confirmpass: true,
                               onSubmit: (String? value){
                                 print(value);
                               },
