@@ -16,17 +16,201 @@ class profileScreen extends StatelessWidget {
     builder: (context,state){
     AppCubit cubit = AppCubit.get(context);
       return Scaffold(
-        backgroundColor: Colors.indigo,
+       // backgroundColor: const Color(0xffc2baae),
+        backgroundColor: Colors.white,
+
         body:Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
-            Image.asset(
-              "images/mghmada.png",
-              height: 200,
+            //dabdob
+            Container(
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+               color: const Color(0xffc2baae),
+                //color: const Color(0xffD3D3D3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "images/mghmada.png",
+                    height: 200,
+                  ),
+                ],
+
+              ),
+
+
             ),
 
-            cubit.isLoading?
-            const Center(
+
+             SizedBox(height: 60),
+            //Name
+            Container(
+              width:double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+
+                color: const Color(0xffD3D3D3),
+
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+             child:const Row(
+
+               children: [
+                     Text('Name :',
+                       style: TextStyle(
+                         color: const Color(0xff7c5022),
+                         fontSize: 30,
+                       ),),
+                 SizedBox(width:15),
+                 Text('Hagar',
+                   style: TextStyle(
+                     color: const Color(0xff7c5022),
+                     fontSize: 30,
+                   ),
+                 ),
+
+               ],
+             ),
+
+            ),
+          const SizedBox(height: 20),
+            //EMAIL
+            Container(
+              width:double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+
+                color: const Color(0xffD3D3D3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              child:const Row(
+
+                children: [
+                  Text('Email :',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),),
+                  SizedBox(width:15),
+                  Text('hagarwaleed@gmail.com',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 25,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+            const SizedBox(height: 20),
+            //PHONE
+            Container(
+              width:double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+
+                color: const Color(0xffD3D3D3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              child:const Row(
+
+                children: [
+                  Text('Phone :',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),),
+                  SizedBox(width:15),
+                  Text('01111650006',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+            const SizedBox(height: 20),
+            //AGE
+            Container(
+              width:double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+
+                color: const Color(0xffD3D3D3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              child:const Row(
+
+                children: [
+                  Text('Age :',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),),
+                  SizedBox(width:15),
+                  Text('20',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+            const SizedBox(height: 20),
+            //HEIGHT
+            Container(
+              width:double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+
+                color: const Color(0xffD3D3D3),
+                borderRadius: BorderRadius.circular(20),
+              ),
+
+              child:const Row(
+
+                children: [
+                  Text('Hieght :',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),),
+                  SizedBox(width:15),
+                  Text('175',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 30,
+                    ),
+                  ),
+                  Text('cm',
+                    style: TextStyle(
+                      color: const Color(0xff7c5022),
+                      fontSize: 20,
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+
+            //cubit.isLoading?
+           /* const Center(
               child: CircularProgressIndicator(
                 color: Colors.white,
               ),
@@ -66,8 +250,11 @@ class profileScreen extends StatelessWidget {
                   ],
                 ),
               ],
-            ),
+            ),*/
+
           ],
+
+
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
