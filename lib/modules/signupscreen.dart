@@ -17,13 +17,13 @@ class signupScreen extends StatelessWidget {
   var phonecont = TextEditingController();
   var dateofbirthcontroller = TextEditingController();
   var heightcont = TextEditingController();
-
+late DateTime bod;
   var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => AppCubit(),
+      create: (BuildContext context) => AppCubit()..createDatabase(),
       child:BlocConsumer<AppCubit,AppStates>(
         listener: (context,state){},
         builder: (context,state){
@@ -59,6 +59,7 @@ class signupScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
+                            cubit: cubit,
                               formKey: formKey,
                               controller: name,
                               type: TextInputType.text,
@@ -80,6 +81,7 @@ class signupScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
+                            cubit: cubit,
                               formKey: formKey,
                               controller: emailcont,
                               type: TextInputType.emailAddress,
@@ -108,6 +110,7 @@ class signupScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
+                            cubit: cubit,
                               formKey: formKey,
                               controller: phonecont,
                               type: TextInputType.phone,
@@ -137,6 +140,7 @@ class signupScreen extends StatelessWidget {
                           ),
                           defaultFormField(
                               formKey: formKey,
+                              cubit:cubit,
                               controller: dateofbirthcontroller,
                               type: TextInputType.datetime,
                               onSubmit: (String value){
@@ -151,6 +155,7 @@ class signupScreen extends StatelessWidget {
                                   firstDate: DateTime.parse("1850-01-01"),
                                   lastDate: DateTime.now(),).then((value) {
                                   dateofbirthcontroller.text=DateFormat.yMMMd().format(value!);
+                                  bod=value;
                                 });
                               } ,
                               // validate: (String? value){
@@ -170,6 +175,7 @@ class signupScreen extends StatelessWidget {
                           ),
                           defaultFormField(
                               formKey: formKey,
+                              cubit: cubit,
                               controller: heightcont,
                               type: TextInputType.number,
                               onSubmit: (String value){
@@ -198,9 +204,11 @@ class signupScreen extends StatelessWidget {
                           ),
                           defaultFormField(
                               formKey: formKey,
+                              cubit: cubit,
                               controller:passcont,
+                              confirmpass: cubit.confirmpass,
                               type: TextInputType.visiblePassword,
-                              isPassword: cubit.ispassword,
+                              isPassword: true,
                               onSubmit: (String? value){
                                 print(value);
                               },
@@ -210,14 +218,6 @@ class signupScreen extends StatelessWidget {
                               onTap: () {
 
                               } ,
-                              // validate: (String? value){
-                              //   if(value != null) {
-                              //     if (value.isEmpty) {
-                              //       return 'Password can not be empty';
-                              //     }
-                              //   }
-                              //   return null;
-                              // },
                               label: 'Password',
                               prefix: Icons.lock,
                               suffix: cubit.ispassword ? Icons.visibility_off :Icons.visibility,
@@ -228,11 +228,13 @@ class signupScreen extends StatelessWidget {
                             height: 15,
                           ),
                           defaultFormField(
+                              cubit:cubit,
                               formKey: formKey,
                               controller: confirmPasscont,
                               type: TextInputType.visiblePassword,
                               isPassword:  cubit.isConfirmedpassword,
-                              confirmpass: true,
+
+                              confirmpass:true,
                               onSubmit: (String? value){
                                 print(value);
                               },
@@ -265,8 +267,10 @@ class signupScreen extends StatelessWidget {
 
                             child: Center(
                                 child: defaultButton(
-                                    function: (){if(formKey.currentState!.validate()){
-
+                                    function: (){
+                                      cubit.validateconfirmpass(passcont.text, confirmPasscont.text);
+                                      if(formKey.currentState!.validate()){
+                                    cubit.inserttoDB(name: name.text, email: emailcont.text, phone: phonecont.text, password: passcont.text, age: cubit.age(DateTime.now(), bod), height: int.parse(heightcont.text));
                                     }},
                                     text: 'Sign Up',
                                     radius: 20,

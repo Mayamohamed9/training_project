@@ -8,7 +8,10 @@ class changeresetConfirmPasswordState extends AppStates{}
 class AppCreateDataBase extends AppStates{}
 class AppGetDataBase extends AppStates{}
 class AppInsertDataBase extends AppStates{}
-
+class AppGetEmailDB extends AppStates{}
+class AppGetPasswordDB extends AppStates{}
+class Appwrongdatastate extends AppStates{}
+class AppConfirmPasssword extends AppStates{}
 class GetDataLoadingState extends AppStates{}
 class GetDataErrorState extends AppStates{}
 class GetDataSuccessState extends AppStates{}

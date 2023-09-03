@@ -1,4 +1,3 @@
-import 'package:training_project/modules/signupscreen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ Widget defaultFormField({
   required Function onChange,
   required Function onTap,
   bool isPassword = false,
-  bool confirmpass = false,
   // required Function validate,
   required String label,
   required IconData prefix,
@@ -20,7 +18,9 @@ Widget defaultFormField({
   required Function suffixPressed,
   bool isClickable = true,
    required GlobalKey formKey ,
-
+   bool wrongdata=false,
+  required AppCubit? cubit,
+  bool confirmpass=false,
 }) =>
     TextFormField(
       controller: controller,
@@ -39,13 +39,16 @@ Widget defaultFormField({
       validator: (value) {
         if (value!.isEmpty) {
           return 'required';
-        }
-       /* if(confirmpass){
-          if(value != passcont.text){
-            print('Passwords don\'t match ' );
 
+        }
+        else if(wrongdata)
+          {
+            return 'wrong data entered';
           }
-        }*/
+        if(confirmpass && cubit!.confirmpass)
+          {
+             return 'posswords are diffrent';
+          }
         return null;
       },
       decoration: InputDecoration(

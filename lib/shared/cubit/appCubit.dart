@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:training_project/modules/info%20class.dart';
 import 'package:training_project/shared/cubit/appStates.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -22,19 +23,19 @@ class AppCubit extends Cubit<AppStates>{
   final dio = Dio();
   bool isLoading = false;
 
+  bool confirmpass=false;
   CairoTemp cairo = CairoTemp("", 0);
 
 
 
 
   bool ispass=true;
-
   bool ispassword = true;
-
+  bool wrongdata = false;
   bool isConfirmedpassword = true;
   bool ispass1=true;
   bool ispass2=true;
-
+  late List<Info> Infos;
 
   void changePassword(bool value){
     ispass = !value;
@@ -73,6 +74,7 @@ class AppCubit extends Cubit<AppStates>{
 
   late Database database;
   List<Map> info =[] ;
+
   void createDatabase()
   {
     openDatabase(
@@ -89,13 +91,9 @@ class AppCubit extends Cubit<AppStates>{
           print("error when creating Table ${onError.toString()}");
         });
       },
-      onOpen: (database) {
-        getDataFromDatabase(database).then((value) {
-          info = value;
-          print(info);
-
-          emit(AppGetDataBase());
-        });
+      onOpen: (database) async {
+       Infos= await infos(database);
+       emit(AppGetDataBase());
         print("database opened");
       },
 
@@ -106,7 +104,7 @@ class AppCubit extends Cubit<AppStates>{
 
   }
 
-  Future inserttoDB(
+   inserttoDB(
       {
         required String name,
         required String email,
@@ -114,37 +112,82 @@ class AppCubit extends Cubit<AppStates>{
         required String password,
         required int age,
         required int height,
-
       }) async
   {
     await database.transaction(
             (txn) {
           txn.rawInsert('INSERT INTO info(name,email,phone,password,age,height) VALUES("$name","$email","$phone","$password","$age","$height")').
-          then((value) {
+          then((value) async {
             print("$value is inserted");
             emit(AppInsertDataBase());
-            getDataFromDatabase(database).then((value){
-
-              info = value;
-              print(info);
-
-              emit(AppGetDataBase());
+            Infos=await infos(database).then((value) {
+              print("infos updated after insertion");
+             return Infos;
             });
+            emit(AppGetDataBase());
           }).catchError((error){
             print("${error.toString()} my error");
           });
           return Future(() => null);
         }
+
+
     );
   }
+int age(DateTime today , DateTime dob)
+{
+return today.year-dob.year;
+}
 
-  Future<List<Map>> getDataFromDatabase(database) async
-  {
-    List<Map> info = await database.rawQuery('SELECT * FROM info');
-    return [];
+  // Future<void> getDataFromDatabase(database)
+  //  async {
+  //   List<Map> info = [];
+  //
+  //   database.rawQuery('SELECT * FROM info').then((value) {
+  //
+  //     value.forEach((element)
+  //     {
+  //     info.add(element);
+  //     });
+  //
+  //     emit(AppGetDataBase());
+  //   });
+  //
+  // }
+  Future<List<Info>> infos(database) async {
+    final db = await database;
 
+    final List<Map<String, dynamic>> maps = await db.query('info');
+
+    emit(AppGetDataBase());
+    return List.generate(maps.length, (i) {
+      return Info(email: maps[i]['email'], name: maps[i]['email'] ,phone: maps[i]['email'], password: maps[i]['email'], age: maps[i]['email'], height: maps[i]['email']);
+    });
   }
+bool validateEmailFromDataBase(String? email)
+{
+  bool found=false;
+  Infos.forEach((element) {
+    if(element.email==email)
+      {
+        found=true;
+      }
 
+  });
+return found;
+}
+bool validatePasswordFromDataBase(String? password)
+{
+  bool found=false;
+  Infos.forEach((element) {
+    if(element.password==password)
+    {
+      found=true;
+    }
+
+  });
+  return found;
+}
 
   Future<void> deleteTable() async {
     // Get a reference to the database.
@@ -161,6 +204,7 @@ class AppCubit extends Cubit<AppStates>{
       print("table deleted");
     });
   }
+
   Future<void> deleteItem(int id) async {
     // Get a reference to the database.
     final db = await database;
@@ -176,5 +220,26 @@ class AppCubit extends Cubit<AppStates>{
       print("item : $value deleted");
     });
   }
+void validatedata(String email, String password)
+{
+  if(this.validateEmailFromDataBase(email)==false || this.validatePasswordFromDataBase(password)==false)
+    {
+      wrongdata=false;
+    }
+  else{
+    wrongdata=true;
+  }
+  emit(Appwrongdatastate());
 
+}
+void validateconfirmpass(String pass, String Confirmed)
+{
+  if(pass==Confirmed)
+    {
+      confirmpass=true;
+      print("passwords identecal");
+    }
+  confirmpass=false;
+  emit(AppConfirmPasssword());
+}
 }

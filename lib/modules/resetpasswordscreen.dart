@@ -42,7 +42,7 @@ class ResetPassword extends StatelessWidget {
     SizedBox(
     height: 20,
     ),defaultFormField(
-
+cubit: cubit,
     formKey: formKey,
     controller: passcontrol,
     type: TextInputType.visiblePassword,
@@ -74,6 +74,7 @@ class ResetPassword extends StatelessWidget {
     height: 20,
     ),
     defaultFormField(
+      cubit: cubit,
     formKey: formKey,
     controller: repaasscontrol,
     type: TextInputType.visiblePassword,

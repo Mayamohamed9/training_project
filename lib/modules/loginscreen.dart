@@ -75,7 +75,9 @@ import 'package:training_project/shared/cubit/appStates.dart';
        height: 15,
        ),
        defaultFormField(
+         wrongdata: cubit.wrongdata,
          formKey: formKey,
+       cubit: cubit,
        controller: emailcontrol,
        type: TextInputType.emailAddress,
        onSubmit: (String value){
@@ -87,12 +89,6 @@ import 'package:training_project/shared/cubit/appStates.dart';
        onTap: () {
 
        } ,
-       // validate: (value) {
-       //   if (value!.isEmpty) {
-       //     return 'Email address cannot be empty';
-       //   }
-       //   return null;
-       // },
        label: 'Email Address',
        prefix: Icons.email,
        suffixPressed: (){}
@@ -101,7 +97,8 @@ import 'package:training_project/shared/cubit/appStates.dart';
        height: 15,
        ),
        defaultFormField(
-
+         cubit: cubit,
+           wrongdata: cubit.wrongdata,
            formKey: formKey,
        controller: passcontrol,
        type: TextInputType.visiblePassword,
@@ -115,13 +112,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
        onTap: () {
 
        } ,
-       // validate: (value) {
-       //   if (value!.isEmpty) {
-       //     return 'Password cannot be empty';
-       //   }
-       //
-       //   return null;
-       // },
+
        label: 'Password',
        prefix: Icons.lock,
        suffix: cubit.ispass ? Icons.visibility_off :Icons.visibility ,
@@ -139,7 +130,12 @@ import 'package:training_project/shared/cubit/appStates.dart';
        child: Center(
        child: defaultButton(
            function: (){
+             if(emailcontrol.text.isNotEmpty && passcontrol.text.isNotEmpty)
+               {
+                 cubit.validatedata(emailcontrol.text, passcontrol.text);
+               }
              if(formKey.currentState!.validate()){
+
                print(emailcontrol.text);
                print(passcontrol.text);
                /*Navigator.push(context, MaterialPageRoute(builder: (context)=> profileScreen()));*/
