@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:training_project/modules/profilescreen.dart';
 import 'package:training_project/modules/resetpasswordscreen.dart';
 import 'package:training_project/modules/signupscreen.dart';
 import 'package:training_project/shared/components/components/defaultbutton.dart';
@@ -21,7 +22,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
    @override
    Widget build(BuildContext context) {
      return BlocProvider(
-         create: (BuildContext context) => AppCubit()..createDatabase(),
+         create: (BuildContext context) => AppCubit()..createDatabase()..getWeather(),
          child:BlocConsumer<AppCubit,AppStates>(
          listener: (context,state){},
          builder: (context,state){
@@ -141,6 +142,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
              if(formKey.currentState!.validate()){
                print(emailcontrol.text);
                print(passcontrol.text);
+               /*Navigator.push(context, MaterialPageRoute(builder: (context)=> profileScreen()));*/
              }
            },
            text: 'LOGIN WITH EMAIL',
