@@ -5,3 +5,6 @@ class changeSignPasswordState extends AppStates{}
 class changeConfirmPasswordState extends AppStates{}
 class changeresetPasswordState extends AppStates{}
 class changeresetConfirmPasswordState extends AppStates{}
+class AppCreateDataBase extends AppStates{}
+class AppGetDataBase extends AppStates{}
+class AppInsertDataBase extends AppStates{}
