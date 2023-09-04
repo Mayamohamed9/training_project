@@ -22,7 +22,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
    @override
    Widget build(BuildContext context) {
      return BlocProvider(
-         create: (BuildContext context) => AppCubit()..createDatabase()..getWeather(),
+         create: (BuildContext context) => AppCubit()..createDatabase(),
          child:BlocConsumer<AppCubit,AppStates>(
          listener: (context,state){},
          builder: (context,state){
