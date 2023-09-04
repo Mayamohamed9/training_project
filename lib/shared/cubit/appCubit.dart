@@ -237,9 +237,11 @@ void validateconfirmpass(String pass, String Confirmed)
   if(pass==Confirmed)
     {
       confirmpass=true;
-      print("passwords identecal");
-    }
-  confirmpass=false;
-  emit(AppConfirmPasssword());
+      print("passwords identecal");emit(AppConfirmPasssword());
+    }else{
+    confirmpass=false;
+    print("passwords not");emit(AppConfirmPasssword());
+  }
+
 }
 }

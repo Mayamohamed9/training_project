@@ -111,6 +111,7 @@ late DateTime bod;
                           ),
                           defaultFormField(
                             cubit: cubit,
+                              indentical:cubit.confirmpass,
                               formKey: formKey,
                               controller: phonecont,
                               type: TextInputType.phone,
@@ -141,6 +142,7 @@ late DateTime bod;
                           defaultFormField(
                               formKey: formKey,
                               cubit:cubit,
+                              indentical:cubit.confirmpass,
                               controller: dateofbirthcontroller,
                               type: TextInputType.datetime,
                               onSubmit: (String value){
@@ -206,9 +208,10 @@ late DateTime bod;
                               formKey: formKey,
                               cubit: cubit,
                               controller:passcont,
-                              confirmpass: cubit.confirmpass,
+                              confirmpass:true,
                               type: TextInputType.visiblePassword,
                               isPassword: true,
+                              indentical: cubit.confirmpass,
                               onSubmit: (String? value){
                                 print(value);
                               },
@@ -233,7 +236,7 @@ late DateTime bod;
                               controller: confirmPasscont,
                               type: TextInputType.visiblePassword,
                               isPassword:  cubit.isConfirmedpassword,
-
+                              indentical: cubit.confirmpass,
                               confirmpass:true,
                               onSubmit: (String? value){
                                 print(value);

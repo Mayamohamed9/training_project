@@ -21,6 +21,7 @@ Widget defaultFormField({
    bool wrongdata=false,
   required AppCubit? cubit,
   bool confirmpass=false,
+  bool indentical=false,
 }) =>
     TextFormField(
       controller: controller,
@@ -41,13 +42,17 @@ Widget defaultFormField({
           return 'required';
 
         }
-        else if(wrongdata)
+        else if(wrongdata) {
+          return 'wrong data entered';
+        }
+        if(confirmpass && !indentical)
           {
-            return 'wrong data entered';
-          }
-        if(confirmpass && cubit!.confirmpass)
-          {
+             print("pass are diffd");
              return 'posswords are diffrent';
+          }
+        else if(cubit!.confirmpass)
+          {
+            print("yadedny");
           }
         return null;
       },
