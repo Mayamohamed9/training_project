@@ -88,25 +88,26 @@ class AppCubit extends Cubit<AppStates>{
             .then((value) {
           print("Table created");
           emit(AppInsertDataBase());
-          convertingINFO();
+          convertingINFO(database);
           emit(AppGetDataBase());
         }).catchError((onError) {
           print("error when creating Table ${onError.toString()}");
         });
       },
-      onOpen: (database) async {
-       Infos= await infos(database);
+      onOpen: (database)  {
        emit(AppGetDataBase());
         print("database opened");
+       convertingINFO(database);
       },
 
     ).then((value){
       database = value;
+
       emit(AppCreateDataBase());
     });
 
   }
-  Future<void> convertingINFO()
+  Future<void> convertingINFO(database)
   async {
     Infos= await infos(database);
   }
@@ -126,10 +127,7 @@ class AppCubit extends Cubit<AppStates>{
           then((value) async {
             print("$value is inserted");
             emit(AppInsertDataBase());
-            Infos=await infos(database).then((value) {
-              print("infos updated after insertion");
-             return Infos;
-            });
+            convertingINFO(database);
             emit(AppGetDataBase());
           }).catchError((error){
             print("${error.toString()} my error");
@@ -167,7 +165,9 @@ return today.year-dob.year;
 
     emit(AppGetDataBase());
     return List.generate(maps.length, (i) {
-      return Info(email: maps[i]['email'], name: maps[i]['email'] ,phone: maps[i]['email'], password: maps[i]['email'], age: maps[i]['email'], height: maps[i]['email']);
+      print(maps[i]['email']);
+      print(maps[i]['password']);
+      return Info(email: maps[i]['email'], name: maps[i]['name'] ,phone: maps[i]['phone'], password: maps[i]['password'], age: maps[i]['age'], height: maps[i]['height']);
     });
   }
 bool validateEmailFromDataBase(String? email)
@@ -263,7 +263,6 @@ void validateconfirmpass(String pass, String Confirmed)
     confirmpass=false;
     print("passwords not");emit(AppConfirmPasssword());
   }
-
 }
 void emailvalid(String email) {
   fillingInfo();
@@ -283,7 +282,8 @@ void gettingInfo(String email , String password)
 {
   fillingInfo();
   Infos.forEach((element) {
-
+           print("${element.email}");
+           print("${element.password}");
     if(element.email==email)
     {
       if(password==element.password)
