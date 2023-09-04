@@ -30,7 +30,7 @@ class AppCubit extends Cubit<AppStates>{
 
 
   bool ispass=true;
-  bool ispassword = true;
+  bool ispasswordd = true;
   bool wrongdata = false;
   bool isConfirmedpassword = true;
   bool ispass1=true;
@@ -41,8 +41,8 @@ class AppCubit extends Cubit<AppStates>{
     ispass = !value;
     emit(changePasswordState());
   }
-  void changeSignPassword(bool value){
-    ispassword = !value;
+  void changeSignPasswordd(bool value){
+    ispasswordd = !value;
     emit(changeSignPasswordState());
   }
   void changeConfirmPassword(bool value){
