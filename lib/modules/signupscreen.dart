@@ -52,7 +52,7 @@ late DateTime bod;
                           ),
                           Center(
                             child: Image.asset(
-                                cubit.ispasswordd? 'images/mghmada.png':'images/doba-removebg-preview.png'
+                                cubit.ispassword? 'images/mghmada.png':'images/doba-removebg-preview.png'
                             ),
                           ),
                           SizedBox(
@@ -215,7 +215,7 @@ late DateTime bod;
                               controller:passcont,
                               confirmpass:true,
                               type: TextInputType.visiblePassword,
-                              isPassword: cubit.ispasswordd,
+                              isPassword: cubit.ispassword,
                               indentical: cubit.confirmpass,
                               onSubmit: (String? value){
                                 print(value);
@@ -229,9 +229,9 @@ late DateTime bod;
                               } ,
                               label: 'Password',
                               prefix: Icons.lock,
-                              suffix: cubit.ispasswordd ? Icons.visibility_off :Icons.visibility,
+                              suffix: cubit.ispassword ? Icons.visibility_off :Icons.visibility,
                               suffixPressed: (){
-                               cubit.changeSignPasswordd(cubit.ispasswordd);
+                               cubit.changeSignPassword(cubit.ispassword);
                               }),
                           SizedBox(
                             height: 15,

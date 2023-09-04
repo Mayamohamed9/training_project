@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_project/modules/info%20class.dart';
 import 'package:training_project/shared/cubit/appStates.dart';
@@ -30,7 +31,7 @@ class AppCubit extends Cubit<AppStates>{
 
   bool ispass=true;
   bool ispassword = true;
-  bool wrongdata = true;
+  bool wrongdata = false;
   bool isConfirmedpassword = true;
   bool ispass1=true;
   bool ispass2=true;
@@ -86,6 +87,9 @@ class AppCubit extends Cubit<AppStates>{
             'CREATE TABLE info (id INTEGER PRIMARY KEY,name TEXT,email TEXT,phone TEXT,password TEXT,age INTEGER, height NUMERIC) ')
             .then((value) {
           print("Table created");
+          emit(AppInsertDataBase());
+          convertingINFO();
+          emit(AppGetDataBase());
         }).catchError((onError) {
           print("error when creating Table ${onError.toString()}");
         });
@@ -102,7 +106,10 @@ class AppCubit extends Cubit<AppStates>{
     });
 
   }
-
+  Future<void> convertingINFO()
+  async {
+    Infos= await infos(database);
+  }
    inserttoDB(
       {
         required String name,
@@ -119,7 +126,10 @@ class AppCubit extends Cubit<AppStates>{
           then((value) async {
             print("$value is inserted");
             emit(AppInsertDataBase());
-            convertingINFO();
+            Infos=await infos(database).then((value) {
+              print("infos updated after insertion");
+             return Infos;
+            });
             emit(AppGetDataBase());
           }).catchError((error){
             print("${error.toString()} my error");
@@ -150,20 +160,40 @@ return today.year-dob.year;
   //   });
   //
   // }
-  Future<List<Info>> infos(database)  async {
+  Future<List<Info>> infos(database) async {
+    final db = await database;
 
-    final List<Map<String, dynamic>> maps = await database.query('info');
+    final List<Map<String, dynamic>> maps = await db.query('info');
 
     emit(AppGetDataBase());
     return List.generate(maps.length, (i) {
-      // print('${maps[i]['email']}');
-      return Info(email: maps[i]['email'], name: maps[i]['name'] ,phone: maps[i]['phone'], password: maps[i]['password'], age: maps[i]['age'], height: maps[i]['height']);
+      return Info(email: maps[i]['email'], name: maps[i]['email'] ,phone: maps[i]['email'], password: maps[i]['email'], age: maps[i]['email'], height: maps[i]['email']);
     });
   }
-  Future<void> convertingINFO()
-  async {
-    Infos= await infos(database);
-  }
+bool validateEmailFromDataBase(String? email)
+{
+  bool found=false;
+  Infos.forEach((element) {
+    if(element.email==email)
+      {
+        found=true;
+      }
+
+  });
+return found;
+}
+bool validatePasswordFromDataBase(String? password)
+{
+  bool found=false;
+  Infos.forEach((element) {
+    if(element.password==password)
+    {
+      found=true;
+    }
+
+  });
+  return found;
+}
 
   Future<void> deleteTable() async {
     // Get a reference to the database.
@@ -205,15 +235,15 @@ void validatedata(String email, String password)
     if(element.email==email)
     {
       print("email found");
-     if(password==element.password)
-       {
-         print("Found");
-         wrongdata=false;
+      if(password==element.password)
+      {
+        print("Found");
+        wrongdata=false;
         gettingInfo(email,password);
-       }
-     else{
-       wrongdata=true;
-     }
+      }
+      else{
+        wrongdata=true;
+      }
     }
     else{
       wrongdata=true;
@@ -226,46 +256,46 @@ void validatedata(String email, String password)
 void validateconfirmpass(String pass, String Confirmed)
 {
   if(pass==Confirmed)
-    {
-      confirmpass=true;
-      print("passwords identecal");emit(AppConfirmPasssword());
-    }else{
+  {
+    confirmpass=true;
+    print("passwords identecal");emit(AppConfirmPasssword());
+  }else{
     confirmpass=false;
     print("passwords not");emit(AppConfirmPasssword());
   }
 
 }
-  void emailvalid(String email) {
-    fillingInfo();
-    bool found = false;
-    Infos.forEach((element) {
-      if (element.email == email) {
-        found = true;
-      }
-      emailenteredprv = found;
-    });
-  }
+void emailvalid(String email) {
+  fillingInfo();
+  bool found = false;
+  Infos.forEach((element) {
+    if (element.email == email) {
+      found = true;
+    }
+    emailenteredprv = found;
+  });
+}
 Future<void> fillingInfo()
 async {
   Infos=await infos(database);
 }
 void gettingInfo(String email , String password)
-  {
-    fillingInfo();
-    Infos.forEach((element) {
+{
+  fillingInfo();
+  Infos.forEach((element) {
 
-      if(element.email==email)
+    if(element.email==email)
+    {
+      if(password==element.password)
       {
-        if(password==element.password)
-        {
-         info=element;
-        }
-
+        info=element;
       }
 
+    }
 
-    });
-    emit(Getinfo());
 
-  }
+  });
+  emit(Getinfo());
+
+}
 }
