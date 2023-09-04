@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:training_project/modules/info%20class.dart';
 import 'package:training_project/shared/cubit/appStates.dart';
@@ -31,12 +30,13 @@ class AppCubit extends Cubit<AppStates>{
 
   bool ispass=true;
   bool ispassword = true;
-  bool wrongdata = false;
+  bool wrongdata = true;
   bool isConfirmedpassword = true;
   bool ispass1=true;
   bool ispass2=true;
-  late List<Info> Infos;
-
+  bool emailenteredprv=false;
+  List<Info> Infos=[];
+  Info? info;
   void changePassword(bool value){
     ispass = !value;
     emit(changePasswordState());
@@ -73,7 +73,6 @@ class AppCubit extends Cubit<AppStates>{
 
 
   late Database database;
-  List<Map> info =[] ;
 
   void createDatabase()
   {
@@ -120,10 +119,7 @@ class AppCubit extends Cubit<AppStates>{
           then((value) async {
             print("$value is inserted");
             emit(AppInsertDataBase());
-            Infos=await infos(database).then((value) {
-              print("infos updated after insertion");
-             return Infos;
-            });
+            convertingINFO();
             emit(AppGetDataBase());
           }).catchError((error){
             print("${error.toString()} my error");
@@ -154,40 +150,20 @@ return today.year-dob.year;
   //   });
   //
   // }
-  Future<List<Info>> infos(database) async {
-    final db = await database;
+  Future<List<Info>> infos(database)  async {
 
-    final List<Map<String, dynamic>> maps = await db.query('info');
+    final List<Map<String, dynamic>> maps = await database.query('info');
 
     emit(AppGetDataBase());
     return List.generate(maps.length, (i) {
-      return Info(email: maps[i]['email'], name: maps[i]['email'] ,phone: maps[i]['email'], password: maps[i]['email'], age: maps[i]['email'], height: maps[i]['email']);
+      // print('${maps[i]['email']}');
+      return Info(email: maps[i]['email'], name: maps[i]['name'] ,phone: maps[i]['phone'], password: maps[i]['password'], age: maps[i]['age'], height: maps[i]['height']);
     });
   }
-bool validateEmailFromDataBase(String? email)
-{
-  bool found=false;
-  Infos.forEach((element) {
-    if(element.email==email)
-      {
-        found=true;
-      }
-
-  });
-return found;
-}
-bool validatePasswordFromDataBase(String? password)
-{
-  bool found=false;
-  Infos.forEach((element) {
-    if(element.password==password)
-    {
-      found=true;
-    }
-
-  });
-  return found;
-}
+  Future<void> convertingINFO()
+  async {
+    Infos= await infos(database);
+  }
 
   Future<void> deleteTable() async {
     // Get a reference to the database.
@@ -222,13 +198,28 @@ bool validatePasswordFromDataBase(String? password)
   }
 void validatedata(String email, String password)
 {
-  if(this.validateEmailFromDataBase(email)==false || this.validatePasswordFromDataBase(password)==false)
+  fillingInfo();
+  Infos.forEach((element) {
+
+    print("${element.email}");
+    if(element.email==email)
     {
-      wrongdata=false;
+      print("email found");
+     if(password==element.password)
+       {
+         print("Found");
+         wrongdata=false;
+        gettingInfo(email,password);
+       }
+     else{
+       wrongdata=true;
+     }
     }
-  else{
-    wrongdata=true;
-  }
+    else{
+      wrongdata=true;
+    }
+
+  });
   emit(Appwrongdatastate());
 
 }
@@ -244,4 +235,37 @@ void validateconfirmpass(String pass, String Confirmed)
   }
 
 }
+  void emailvalid(String email) {
+    fillingInfo();
+    bool found = false;
+    Infos.forEach((element) {
+      if (element.email == email) {
+        found = true;
+      }
+      emailenteredprv = found;
+    });
+  }
+Future<void> fillingInfo()
+async {
+  Infos=await infos(database);
+}
+void gettingInfo(String email , String password)
+  {
+    fillingInfo();
+    Infos.forEach((element) {
+
+      if(element.email==email)
+      {
+        if(password==element.password)
+        {
+         info=element;
+        }
+
+      }
+
+
+    });
+    emit(Getinfo());
+
+  }
 }

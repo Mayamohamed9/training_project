@@ -3,8 +3,8 @@ class Info {
   String name;
   String phone;
   String password;
-  String age;
-  String height;
+  int age;
+  int height;
 
   Info({
     required this.email,

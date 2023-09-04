@@ -22,6 +22,9 @@ Widget defaultFormField({
   required AppCubit? cubit,
   bool confirmpass=false,
   bool indentical=false,
+  bool emailenteredprv=false,
+  bool validateemail=false,
+
 }) =>
     TextFormField(
       controller: controller,
@@ -50,9 +53,10 @@ Widget defaultFormField({
              print("pass are diffd");
              return 'posswords are diffrent';
           }
-        else if(cubit!.confirmpass)
+
+        if(validateemail && emailenteredprv)
           {
-            print("yadedny");
+            return "email entered priv";
           }
         return null;
       },

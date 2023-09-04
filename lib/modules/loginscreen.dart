@@ -22,7 +22,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
    @override
    Widget build(BuildContext context) {
      return BlocProvider(
-         create: (BuildContext context) => AppCubit()..createDatabase()..getWeather(),
+         create: (BuildContext context) => AppCubit()..createDatabase(),
          child:BlocConsumer<AppCubit,AppStates>(
          listener: (context,state){},
          builder: (context,state){
@@ -84,6 +84,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
        print(value);
        },
        onChange: (String value){
+         cubit.validatedata(emailcontrol.text, passcontrol.text);
        print(value);
        },
        onTap: () {
@@ -108,6 +109,7 @@ import 'package:training_project/shared/cubit/appStates.dart';
        },
        onChange: (String? value){
        print(value);
+       cubit.validatedata(emailcontrol.text, passcontrol.text);
        },
        onTap: () {
 
@@ -133,12 +135,11 @@ import 'package:training_project/shared/cubit/appStates.dart';
              if(emailcontrol.text.isNotEmpty && passcontrol.text.isNotEmpty)
                {
                  cubit.validatedata(emailcontrol.text, passcontrol.text);
+
                }
              if(formKey.currentState!.validate()){
-
-               print(emailcontrol.text);
-               print(passcontrol.text);
-               /*Navigator.push(context, MaterialPageRoute(builder: (context)=> profileScreen()));*/
+               cubit.gettingInfo(emailcontrol.text,passcontrol.text);
+               Navigator.push(context, MaterialPageRoute(builder: (context)=> profileScreen(info:cubit.info! )));
              }
            },
            text: 'LOGIN WITH EMAIL',

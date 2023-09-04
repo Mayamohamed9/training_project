@@ -4,14 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../shared/cubit/appCubit.dart';
 import '../shared/cubit/appStates.dart';
+import 'info class.dart';
 
 class profileScreen extends StatelessWidget {
-  const profileScreen({super.key});
+   profileScreen({super.key,required Info info });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => AppCubit(),
+        create: (BuildContext context) => AppCubit()..createDatabase(),
     child:BlocConsumer<AppCubit,AppStates>(
     listener: (context,state){},
     builder: (context,state){
@@ -126,7 +127,7 @@ class profileScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold
                               ),),
                             SizedBox(width:15),
-                            Text('Hagar',
+                            Text('${cubit.info!.name}',
                               style: TextStyle(
                                 color: const Color(0xff7c5022),
                                 fontSize: 30,

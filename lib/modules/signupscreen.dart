@@ -59,7 +59,7 @@ late DateTime bod;
                             height: 15,
                           ),
                           defaultFormField(
-                            cubit: cubit,
+                              cubit: cubit,
                               formKey: formKey,
                               controller: name,
                               type: TextInputType.text,
@@ -90,10 +90,13 @@ late DateTime bod;
                               },
                               onChange: (String value){
                                 print(value);
+                                cubit.emailvalid(emailcont.text);
                               },
                               onTap: () {
 
                               } ,
+                              validateemail: true,
+                              emailenteredprv: cubit.emailenteredprv,
                               // validate: (String? value){
                               //   if(value != null){
                               //     if(value.isEmpty){
@@ -184,6 +187,8 @@ late DateTime bod;
                                 print(value);
                               },
                               onChange: (String value){
+
+                                cubit.validateconfirmpass(passcont.text, confirmPasscont.text);
                                 print(value);
                               },
                               onTap: () {
@@ -216,6 +221,7 @@ late DateTime bod;
                                 print(value);
                               },
                               onChange: (String? value){
+                                cubit.validateconfirmpass(passcont.text, confirmPasscont.text);
                                 print(value);
                               },
                               onTap: () {
@@ -272,6 +278,7 @@ late DateTime bod;
                                 child: defaultButton(
                                     function: (){
                                       cubit.validateconfirmpass(passcont.text, confirmPasscont.text);
+                                      cubit.emailvalid(emailcont.text);
                                       if(formKey.currentState!.validate()){
                                     cubit.inserttoDB(name: name.text, email: emailcont.text, phone: phonecont.text, password: passcont.text, age: cubit.age(DateTime.now(), bod), height: int.parse(heightcont.text));
                                     }},
